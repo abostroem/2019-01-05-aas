@@ -1,0 +1,582 @@
+Welcome to The Carpentries Etherpad!
+
+This pad is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents.
+
+Use of this service is restricted to members of the Software Carpentry and Data Carpentry community; this is not for general purpose use (for that, try etherpad.wikimedia.org).
+
+Users are expected to follow our code of conduct: https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html
+
+All content is publicly available under the Creative Commons Attribution License: https://creativecommons.org/licenses/by/4.0/
+
+
+AAS WIFI: 
+username: AAS223
+password: seattlemeeting
+
+Course website: https://abostroem.github.io/2019-01-05-aas/
+Course repositoy: https://github.com/abostroem/2019-01-05-aas
+Software Carpentry lessons: https://software-carpentry.org/lessons/
+
+
+
+ Bash
+ Bash Lesson: http://swcarpentry.github.io/shell-novice/
+	* Click on setup
+	* Download: data-shell.zip
+	* Unzip: double click or type: unzip data-shell.zip
+	* cd <path where you downloaded zip file>/data-shell
+ 
+ /            : root directory (this is the highest level you can go)
+ .            : current directory
+ ls ../       : see previous directory
+ cd ../     : go to up a level in the path
+ ls -a      : show hidden files and directories
+ ls -l       : details permissions, dates modified, sizes
+ pwd     : print current (working) directory
+ mkdir sis  : makes a new direc=tory called sis
+	 avoid using special characters like *, ~,  spaces
+touch fake.txt   : create an empty file
+rm fake.txt       : delete the file
+rmdir sis          : delete the directory sis (and everything inside)
+mkdir thesis
+cd thesis
+nano draft.txt     : create a file for editing draft.txt; 
+	ctl+o : save file
+	ctl+x: close
+	enter: save name
+rm -i draft.txt      : ask me if I really want to delete the file before you delete it
+rm -r <directory> : another way to 
+mkdir thesis
+mv thesis  old_thesis       : change the name of thesis to old_thesis
+YOU CAN TAB COMPLETE so you don't have to type the full name of things
+e.g. old<TAB> --> old_thesis
+
+*  : wildcard
+cd molecules
+ls *
+
+? : one unknown character
+
+Pipes and Filters:
+wc  : count words and lines in a file
+wc *.pdb
+wc -l *.pdb   : all lines, not all words
+wc -l *.pdb > lengths.txt    : send output of wc to a file called lengths.txt (instead of printing it to the screen)
+
+cat lengths.txt   : to view files
+
+sort -n lengths.txt    : sort by number without -n sort by what each line starts with
+
+ctl+c exits a command
+wc -l *.pdb >> lengths.txt   : append output to the end of the file lengths.txt
+
+We can combine multiple commands with a pipe
+sort -n lengths.txt | head -n 1    : sort the lines in lengths.txt and then print the first line to the screen
+wc -l *.pdb | sort -n     : run wc on *.pdb and then sort the output
+You can string together as many commands as you would like
+wc -l *.pdb | sort -n | head -n 1
+
+wc -l < lengths.txt  : redirect in the other direction: count the lines in lengths.txt
+
+Shell scripting:
+writing loops
+Navigate to the data-shell directory
+cd creatures
+
+We want to move
+
+for filename in basilisk.dat unicorn.dat
+do
+    head -n 3 $filename
+done
+
+for filename in *
+do 
+     ls $filename
+done
+
+# variable name is flexible, so pick variable names that are insightful; but cannot include dashes 
+# variable names can persist in the shell memory
+
+for totally_real_animal in * 
+do
+    ls $totally_real_animal 
+done
+
+# copying a bunch of files in a loop with a self-check using 'echo' to display information to screen 
+
+for filename in *dat 
+do 
+   cp $filename original-$filename 
+   echo original-$filename 
+done 
+
+# to view commands in your shell session, use 'history' 
+
+history 
+
+# us a pipe to 'tail' command to shorten the output, below we view the last 5 commands
+
+history | tail -n 5 
+
+# output content to a file 
+
+for file in * 
+do 
+   head -n 1 $file > analyzed-$file 
+done 
+
+# nested loops 
+
+for file in * 
+do 
+    for claw in 1 2 3 
+    do 
+        echo $claw-$file 
+    done 
+done 
+
+# output to a single file name 
+
+for file in * 
+do 
+    for claw in 1 2 3 
+    do 
+         echo $claw-$file >> single_file.txt 
+    done 
+done 
+
+# view newly created file with nano or more 
+nano single_file.txt 
+
+# or 
+
+more single_file.txt 
+ 
+
+cd molecules
+nano middle.sh
+In file type:
+head -n 15 octane.pdb | tail -n 5
+ctl-o
+ctl-x
+enter
+
+from the shell:
+bash middle.sh    :bash here is the name of the language that we're writting our script in
+
+nano middle.sh
+head -n 15 $1 | tail -n 5   
+bash middle.sh octane.pdb
+
+$1 references the first thing you type after "bash middle.sh". In the example above, the code will subsitute octane.pdb for $1
+
+nano middle.sh
+head -n  $2 $1 | tail -n $3   
+bash middle.sh octane.pdb 6 2
+This sets $1 = octane.pdb
+$2 = 6
+$3 = 2
+
+
+
+# Python lesson 
+
+
+hold down shift+enter to execute the active jupyter cell
+import math
+help(math) or math?
+parentheses:
+(): grouping, tuples, functions
+[]: list, indexing/slicing (0-based indexing)
+dir(math) : tell me everything I could possibly do with math
+dir(1.0)
+math.<tab>
+types:
+	* 1  type: int
+	* 1.0    type: float
+	* 's'    type: string
+	* "s"   type: string
+
+'shooting'+'star'    : concatonate shooting and star
+'star'*3                   :repeat star 3 times
+
+strings can be indexed, for example: 
+
+"star"[3] 
+
+will return the 'r' in the string "star" 
+
+IMPORTANT NOTE: python is a zero-based indexing language, indices start with 0 , hence "star"[3] returns "r" instead of "a" because 0 - "s", 1-"t", etc. 
+Any negative index => starts from the last element and goes backwards in sequence
+
+"star"[-1] = "r"
+"star"[0] = "s"
+Slicing:
+    "star"[1:3] = "ta"
+    
+you can set a variable to a string, 
+
+y = "star" 
+
+and index your variable instead: 
+    
+y[3] 
+
+you can assign the index to a variable and use the variable as index: 
+
+n = 3 
+y[n] 
+
+defining multiple variables on one line: 
+    
+y, z = 3, 10 
+
+y gets 3 and z gets 10 
+
+LISTS
+lists are 
+	- mutable (can be changed/edited)
+	- can be nonhomogeneous (multiple types)
+E.g.:
+my_list = [1,2,3] 
+
+We made all integers but we can chose mixed types of lists: 
+    
+my_list2 = ['a', 1, 'b', 'train', 3.0] 
+
+adding list makes new list of list elements in order
+
+my_list + my_list2 
+
+List can be index as well: 
+    
+my_list[1] 
+
+built-in python function 'len' can be used to check the size of a list 
+
+len(my_list)
+
+# New PACKAGE, numpy 
+Complete numpy package documentation w/examples: https://docs.scipy.org/doc/numpy-1.13.0/index.html
+Numpy ND (n-dimensional) arrays: https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.ndarray.html
+
+import numpy 
+using namespace to your advantage: 
+import numpy as np 
+
+will make your code a little bit more compact since you can type: 
+np.abs(-4) 
+instead of 
+numpy.abs(-4) 
+
+back to our list: 
+my_list = [1,2,3] 
+to turn into a numpy array: 
+my_array = np.array(my_list) 
+or 
+my_array = np.array([1,2,3]) 
+
+now addition of numpy arrays will behave differently than the addition of lists: 
+my_array + my_array 
+will do an element by element addition (as in linear algebra) 
+
+Exercise: 
+my_array([1,2,3,4]) 
+print(my_array*3) 
+print(my_array**2) 
+np.mean(my_array) 
+or, since numpy arrays carry some attributes and functions 
+my_array.mean() 
+
+multidimensional array using nested backeted arrays 
+indexing for (2-D) => [row_index, column_index]
+my_array = np.array( [[1,2,3], [2,2,4]])
+
+my_array.mean() will give you mean of all numbers in array
+my_array.mean(axis=1) will give you mean along a particular axis
+
+indexing and slicing n-dimensional numpy arrays requires n indices
+my_array[0,0] 
+my_array[0:2, 0] 
+my_array[0] will give you the entire 0th row 
+
+#For loops
+my_favorite_stars = ['sirius', 'deneb', 'altair']
+for star in my_favorite_stars:
+    print('one of my favorite stars is ' + star)
+    
+Alternate way to combine text in print statement
+print('one of my favorite stars is {}'.format(star)
+
+#if then else
+constellation = 'cygnus'
+if constellation == 'cygnus':
+    print('Cygnus is my favorite constellation')
+else:
+  print('{} is not my favorite constellation'.format(constellation))
+  
+constellation = 'lyra'
+if constellation == 'cygnus':
+    print('Cygnus is my favorite constellation')
+else:
+    print('{} is not my favorite constellation'.format(constellation))
+
+Looping Exercise 
+
+for star in my_favorite_stars: 
+    if len(star) == 6: 
+        print(star)
+    else: 
+        print('Length of name {} is too short.'.format(star) 
+
+print(star) # prints the last value of the variable star, in our case, altair 
+len(star) == 6 # returns True or False depending on what is stored in star 
+
+Boolean can be either "True", "False" or 1/0 
+
+if 0: 
+    print("Nothing will print, because 0 is cross-referenced to False") 
+
+if 1: 
+    print("One is the lonliest number that has ever been") 
+
+my_list = [1,2, 5, 7, 9, 4, 5, 4] 
+# find the total 
+total = 0 
+for number in my_list: 
+    total = total + number 
+
+# calculate the mean 
+mean = total/len(my_list) 
+# find the median 
+sorted_list = sorted(my_list)
+if len(my_list)%2 == 1: 
+    median_index = int(len(my_list)/2) 
+    median = sorted_list[median_index]
+else: 
+    median_index = int(len(my_list)/2)
+    median = (sorted_list[median_index] + sorted_list[median_index-1])/2 
+# output the results and compare to the numpy values:
+print(mean,median) 
+print(np.mean(my_list),np.median(my_list)
+
+Making a function 
+ - functions are defined with the following syntax: 
+ def <function_name>(<function inputs>): 
+    <function actions> 
+    return <optional return values> 
+
+real-world example: 
+def calculate_total(my_list):
+    total = 0 
+    for number in my_list: 
+        total += number 
+    return total 
+
+def calculate_mean(my_list): 
+    # calling the function we just created to get the total
+    total = calculate_total(my_list) 
+    list_length = len(my_list)
+    mean = total/list_length
+    return mean 
+
+def calculate_median(my_list):
+    sorted_list = sorted(my_list) 
+    if len(my_list)%2 == 1: 
+        median_index = int(len(my_list)/2)
+        median = sorted_list[median_index] 
+    else: 
+        median_index = int(len(my_list)/2)
+        median = (sorted_list[median_index]+sorted_list[median_index-1])/2
+    return median 
+
+now you can use your functions
+
+my_list = [1,2, 5, 7, 9, 4, 5, 4] 
+mean = calculate_mean(my_list) 
+median = calculate_median(my_list) 
+print(mean,median) 
+
+DOCSTRINGS (notes to future self and others to remember what your function does, 
+Python's definition of docstrings: PEP 257 https://www.python.org/dev/peps/pep-0257/
+Numpy style docstrings: https://numpydoc.readthedocs.io/en/latest/format.html
+Python style formatting in general: PEP8: https://www.python.org/dev/peps/pep-0008/
+
+For example, our calculate_total function: 
+def calculate_total(my_list):
+    """Calculate the total of a list. 
+    
+    Parameters
+    -------------
+    my_list : list 
+          This is the list to calculate a total. 
+          
+    Returns
+    ---------
+    total : int/float 
+          This is the total of our list. 
+    """
+    total = 0 
+    for number in my_list: 
+        total += number 
+    return total 
+
+now you can type calculate_total? or help(calculate_total) to view the DOCstring
+
+Exercise: make a function to convert parsecs to megaparsecs 
+
+# Example using python for astronomy data analysis 
+data_dir =" <path to repo>/2019-01-05-aas/python"
+data_file = 'hubble_data.dat'
+#Shell command in the notebook
+!ls " <path to repo>/2019-01-05-aas/python/hubble_data.dat"
+
+#Import some packages from astropy
+from astropy.table import Table
+import astropy.units as u
+
+import os
+full_data_file = os.path.join(data_dir, data_file)
+glob.glob(full_data_file)
+
+table_data = Table.read(full_data_file, 
+                                      names=['galaxy', 
+                                                    'supernova', 
+                                                    'm', 
+                                                    'sig_m', 
+                                                    'dist_mod', 
+                                                    'sig_dist_mod', 
+                                                    'M', 
+                                                    'sig_M', 
+                                                    'velocity'],
+                                        format='ascii')
+
+from matplotlib import pyplot as plt
+%matplotlib inline
+plt.plot(table_data['dist_mod'], 
+            table_data['velocity'], 'o')
+
+def find_distance(dist_mod):
+    """Find a distance given a distance modulus.
+    
+    Parameters:
+    --------------
+    dist_mod: int, float
+         Distance modulus
+
+    Returns:
+    ---------
+    distance: int, float
+        the distance in parsecs
+    """
+    
+    distance = 10**(dist_mod+5)/5)
+    return distance
+
+#This function can be run on a single number or a table column
+dist_pc = find_distance(table_data['dist_mod'])
+dist_mpc = convert_to_megaparsecs(dist_pc)
+
+def convert_to_megaparsecs2(distance):
+    """Write your docstring here
+    """
+    dist_mpc = distance.to(u.Mpc)
+    return dist_mpc
+
+# adding units to our find_distance function: 
+def find_distance(dist_mod):
+    """Find a distance given a distance modulus.
+    
+    Parameters:
+    --------------
+    dist_mod: int, float
+         Distance modulus
+
+    Returns:
+    ---------
+    distance: int, float
+        the distance in parsecs
+    """
+    
+    distance = 10**(dist_mod+5)/5)*u.pc 
+    return distance
+
+dist_pc = find_distance(table_data['distance'])
+dist_mpc = convert_to_megaparsecs2(dist_pc)
+
+plt.plot(dist_mpc, table_data['velocity'], 'x')
+
+#Fit a straight line to the data
+fit_velocity = np.polyfit(dist_mpc, table_data['velocity'], 1)  #x, y, degree of polynomial
+
+#Plot over data
+plt.plot(dist_mpc, table_data['velocity'], 'x')
+plt.plot(dist_mpc, np.polyval(fit_velocity, dist_mpc))  #poly val takes an output from polyfit and the x values and calculates the y values
+
+#np.polyval = fit_veloctiy[0]*dist_mpc + fit_velocity[1]
+
+plt.xlabel('Distance (Mpc)')
+plt.ylabel('r'Velocity ($\frac{km}{s}$)')
+
+plt.legend(loc=2)
+
+plt.title('Hubble Diagram')
+
+plt.savefig('hubble_diagram.pdf')
+
+Matplotlib Examples website: https://matplotlib.org/gallery/index.html 
+ - good resource for fully-functional example plots using fake generic data 
+ - excellent starting point and nice overview of some of matplotlib's power 
+
+Finding your acknowledgements 
+
+https://astrofrog.github.io/acknowledgment-generator/ 
+
+https://drive.google.com/file/d/1TGWDiOf4l9omRzDJnGWjyR-PBF8LUVZG/view?usp=sharing
+
+
+HELPFUL JUPYTER NOTEBOOK ADD-ONS:
+    extensions (nb_extensions):
+		= get options such as highlighting selected word, re-formatting spaces to PEP8, timestamping for cells, code folding, etc
+		= github: https://github.com/ipython-contrib/jupyter_contrib_nbextensions
+		= installation instructions: https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/install.html
+		= once installed, go to home directory in Jupyter (click the logo upper left) and go to the tab "Nbextensions". Scroll and click "Enable" to active an extension.
+	themes (jupyter-themes):
+		= change the size of cells, toolbars, fonts, colors, default plotting format, etc
+		= github: https://github.com/dunovank/jupyter-themes
+
+git clone https://github.com/abostroem/2019-01-05-aas.git
+
+Here's the notebook we went through in the demo : https://github.com/abostroem/2019-01-05-aas/blob/gh-pages/python/In_Class_Python.ipynb (It lacks the nice notes of the master_plan notebook -- but has all the literal code we typed.)
+
+Some documentation for the complex yet awesome packages we went through : 
+    Numpy : https://docs.scipy.org/doc/numpy-1.15.1/reference/index.html
+    Astropy : http://www.astropy.org/
+
+Example for how to use command line arguments for a script (it's python 2, but other than the print it still applies!)
+https://www.pythonforbeginners.com/system/python-sys-argv
+
+Code Review Suggestions :
+	* Give a docstring at the beginning with the author, date, purpose, etc.
+	* Needs more cowbell comments
+	* White space to break up sections 
+	* This was named as a ".txt", but we could put it in a ".py" to run it.
+	* Some of this would lend itself to a function. ex:
+	def plot_column():
+	    """Plot each column"""
+	pyplot.figure()
+	pyplot.plot()...
+	* Better variable names
+	* Missing pyplot import
+	* Unused imports 
+	* Run through our three column slices with a loop instead of manually
+	* The plot could be more dynamic with more than one color. 
+	* Imports should be in native/third party/local order and alphabetized within these categories 
+	* Make the place where you specify data more obvious (even a GLOBAL variable)
+
+
+Please try : "git pull origin gh-pages" -- to see the updated notebook we went over in class. 
+
+
+
