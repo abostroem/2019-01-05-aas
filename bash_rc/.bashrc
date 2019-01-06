@@ -1,3 +1,9 @@
+# demo environment variable
+export TEST_PATH="/hello/this/is/a/sample/path"
+
+# add a path to your survey.db here!
+
+
 # added by Miniconda3 installer
 export PATH="/Users/jfowler/miniconda3/bin:$PATH"
 
