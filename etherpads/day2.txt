@@ -1,0 +1,220 @@
+Welcome to The Carpentries Etherpad!
+
+This pad is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents.
+
+Use of this service is restricted to members of the Software Carpentry and Data Carpentry community; this is not for general purpose use (for that, try etherpad.wikimedia.org).
+
+Users are expected to follow our code of conduct: https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html
+
+All content is publicly available under the Creative Commons Attribution License: https://creativecommons.org/licenses/by/4.0/
+
+PLEASE FILL OUT THE POST-ASESSMENT!! : https://www.surveymonkey.com/r/swc_post_workshop_v1?workshop_id=2019-01-05-aas
+
+AAS WIFI: 
+username: AAS223
+password: seattlemeeting
+
+Course website: https://abostroem.github.io/2019-01-05-aas/
+Course repositoy: https://github.com/abostroem/2019-01-05-aas
+Software Carpentry lessons: https://software-carpentry.org/lessons/
+
+Day1 Etherpad: https://github.com/abostroem/2019-01-05-aas/blob/gh-pages/etherpads/day1.txt
+
+Unconference session ideas:
+	* Bash profile setup
+	* Bash with exercises
+	* Advanced notebooks
+	* SQL (database access)
+	* More plotting with matplotlib (data visualization): https://github.com/abostroem/2015-01-03-aas/blob/gh-pages/intermediate/matplotlib/Plotting%20with%20matplotlib.ipynb
+	* Flask websites:  https://github.com/julesfowler/dot-astro-flask-demo
+	* Astropy Intro: https://github.com/bmorris3/2016_astro_bootcamp/blob/master/intro_to_astropy.ipynb
+	* File formats (JSON, hdf5,...): hdf5: https://github.com/bmorris3/2016_astro_bootcamp/blob/master/intro_to_hdf5.ipynb
+	* Object oriented programming (classes): https://github.com/bmorris3/2016_astro_bootcamp/blob/master/intro_to_oo.ipynb
+	* Git/GitHub for open science
+	* Bokeh (fancy interactive plotting)
+	* Leaving the notebook (writing scripts in Python)
+	* Working with FITS in Tables
+	* Collaborative writing with Overleaf
+	* CRON jobs (automating bash or python scripts)
+	* PYNBODY (needs an instructor)
+	* pyICs (needs an instructor)
+	* Packaging: https://github.com/eteq/python-packaging
+Unconference Schedule
+9am: Introduction
+10:30-11: Vote on sessions
+1:30: Sessions announced
+1:45: Unconference sessions begin! 
+
+
+
+Git slides:
+https://slides.com/abostroem/local_version_control
+https://slides.com/abostroem/deck-5
+
+Git Resources:
+https://git-scm.com/doc - especially the book
+When you are ready to learn about branching: https://learngitbranching.js.org/?NODEMO
+Umali's book -- Git in 30 lunches is OUTSTANDING!
+
+Setup instruction for git on mac : 
+    
+macOSVideo Tutorial
+For OS X 10.9 and higher, install Git for Mac by downloading and running the most recent "mavericks" installer from this list. Because this installer is not signed by the developer, you may have to right click (control click) on the .pkg file, click Open, and click Open on the pop up window. After installing Git, there will not be anything in your /Applications folder, as Git is a command line program. For older versions of OS X (10.5-10.8) use the most recent available installer labelled "snow-leopard" available here.
+
+
+Here's an example of 2D maps/contour plots with python/matplotlib : https://matplotlib.org/examples/images_contours_and_fields/pcolormesh_levels.html
+
+What is version control? 
+	* tracking the history of a project
+		* who changed what and when? 
+		* what was the change?
+	* Just for you, or for a whole collaboration.
+
+Why does this matter?
+	* Just like Rudy's workflow yesterday, avoid 800 copies of your final draft all named slightly differently.
+	* for an individual:
+		* fix/undo mistakes
+		* show what you did and why
+		* make a *definative* final version
+		* REALLY difficult to accidentally delete files
+	* for a collaboration:
+		* who made a change and who should be held accountable
+		* sork simultaneously
+		* REALLY difficult to accidentally overwrite 
+
+If you are not sure how to use a specific git command, do "git help <command>". Oftentimes it'll be helpful to google examples as well. 
+
+Configuration:
+	* when configuring, the "--global" means that you only have to set it once on your computer
+	* command format: "git <verb>"
+		* For example, "git commit", "git add"
+	* You can change your settings at any time
+	* You can test to make sure you've configured it how you want by doing "git config --list"
+
+To create a repository:
+	* NEVER make a repo inside another repo!
+	* Create  a directory somewhere
+	* inside that directory, type "git init"
+		* Test that this was successful by doing "ls -a" and there should be a .git directory, which stores all of the information about the repo
+
+Git Status:
+	* tells you what changes you've made since the last commit as well as which branch you're on.
+	* This is a good command to know, just to make sure you know where you are before you commit something
+
+Tracking changes:
+	* When you commit, the message is required. 
+		* If you don't specify "-m" in git commit command, it will open it in your text editor.
+			* Do not change the name of the file it opens -- Git knows what to do with this
+		* Make it as useful or un-useful as you want!
+	* Once you commit changes and do "git status", it *should* say that the working directory or working tree is clean
+
+Viewing your history:
+	* "git log"
+	* or "git log -n <n>" where <n> is the number of commits back you'd like to see
+	* In your commit log, there will be a big ole alphanumeric commit hash, which uniquely identifies that specific commit
+		* Oftentimes, you will just need to use the first 7 numbers in the commit hash to identify your commit
+
+Changing a File:
+	* staging area is essentially taking a snapshot of the files, but you have to use "git add" in order to take that snapshot (move it to the staging area)
+	* If you don't like the changes you've made, you can do "git checkout -- <file>..." to discard the changes in your working directory
+		* "git checkout" is the opposite of "git add"
+	* Use "git diff <file>" to see the changes you've made
+		* You will only see these changes if you do "git diff" before you move it to the staging area with "git add"
+		* if you have already staged the file but want to see the difference in the file you changed, do "git diff -- staged <file>"
+
+Referencing different Versions
+	* Shorthand for different versions of each repo
+		* Current version == HEAD
+		* Version before == HEAD~1
+		* Version before before == HEAD~2 (ad infinitem)
+	* You can also use commit hashes (those long numbers) to references versions (you only need the first 7 characters)
+		* "git diff HEAD~1 HEAD~2"
+		* "git diff some-7-characters-of-the-hash"
+	* 
+
+Recovering Older Versions
+	* Overwrite a file, and then recover it with "git checkout HEAD file"
+	* The idea is that if you have made changes without tracking them, and then you can recover your last tracked changes in HEAD.
+	* Example: overwriting jupiter.txt
+		* to go back to previous version do: "git checkout HEAD jupiter.txt"
+	* To checkout first saved version:
+		* git log jupiter.txt (to check the commits you've made)
+		* git checkout <commit hash> jupiter.txt
+		* cat jupiter.txt (to verify what's in jupiter.txt)
+	* To go back to most recent version of jupiter.txt:
+		* git checkout <most recent commit hash> <filename>
+		* cat jupiter.txt
+
+DETATCHED HEAD STATE: 
+	* You're basically starting a new history. 
+	* It will not connect back to the history you had before unless you specifically connect it back
+		* revert back with "git checkout master" (before you did "git checkout HEAD" -- so you're basically doing it in reverse
+
+It may be helpful to visualize your commit tree. In order to do this, you can do "git log --graph" or "gitk"
+
+Remote Repositories:
+	* GitHub and Bitbucket are examples
+	* github backs up everything you put on their server
+	* "git remote add origin" command is giving a name to the github repo and making it a default
+	* git push -u origin master tells git to take all of the changes you've committed in master, and push it to the remote repo (origin). 
+		* Once you do this, you'll be able to see the changes reflected in github.
+	* 
+
+If you made a mistake with the first line where you add an origin -- you can't just run it again. If the origin is already set (which you can check with "git remote -v", you need to reset it instead of add it.
+You can do this with "git remote set-url origin whatever-your-repo-is"
+
+
+Collaborating:
+	* In git push or git pull, the "origin master" part is default, so if you're pushing changes to origin from master, using "git push" is enough. 
+		* If, however, you ae pushing changes to origina from <other branch name>, you'll have to do "git push origin <other branch name>"
+
+Git Education Account Request: 
+    students: https://help.github.com/articles/applying-for-a-student-developer-pack/
+    researcher: https://help.github.com/articles/applying-for-an-academic-research-discount/
+
+
+SESSION 1 DETAILS : 
+    https://github.com/abostroem/2019-01-05-aas
+    https://swcarpentry.github.io/sql-novice-survey/01-select/index.html
+    Here's a great little demo notebook on some of the content we just (and will soon) cover, as well as how you take that into a generalized Python application with SQLalchemy : https://gist.github.com/bourque/6653dd69dadb3c1ee3d2ed6a9f3db2e5#file-what_are_database-ipynb
+    Here's where we get into creating and modifying databases : https://swcarpentry.github.io/sql-novice-survey/09-create/index.html
+An example of an SQL application is the ExoCTK Fortney Grid which is here :https://exoctk.stsci.edu/fortney
+The source code for this is around line 555 in this file : https://github.com/ExoCTK/exoctk/blob/master/exoctk/exoctk_app/app_exoctk.py
+
+    
+    plotting reference notebook https://github.com/abostroem/2015-01-03-aas/blob/gh-pages/intermediate/matplotlib/Plotting%20with%20matplotlib.ipynb 
+    
+    
+Choosing a license: https://choosealicense.com
+setup.py
+#!/usr/bin/env python
+
+from distutils.core import setup
+from setuptools import setup # use this import statement instead if wanting to use install_requires
+setup(name='utilities_az',      
+version='0.1dev',      
+description='utilities functions and classes for astronomical analysis',      
+author='K. Azalee Bostroem',      
+author_email='abostroem@gmail.com',      
+packages=['utilities_az'],     
+install_requires=['numpy', 'matplotlib']
+
+) 
+
+import numpy as np
+times = np.linspace(0, 10, 100)
+sigma = 0.1
+fluxes = 1 + sigma * np.random.randn
+uncertainties = sigma * np.ones_like
+flags = np.random.randint(0, 5, len(fluxes)) 
+name = 'proxima Centauri'
+
+lc = mymodule.LightCurve(times=times, fluxes=fluxes, uncertainties=uncertainties,flags=flags,name=name) 
+
+MATPLOTLIB BACKEND STUFF AND YOUR MATPLOTLIBRC FILE
+matplotlibrc template: https://github.com/matplotlib/matplotlib/blob/master/matplotlibrc.template 
+you can copy and save this text file in ~/.matplotlib/matplotlibrc
+then to change your backend, uncomment line 41, change it to, e.g., Qt5Agg (that's the one I use)
+you can also uncomment and edit line 221 to text.usetex True for auto-latex-ification
+--> I will put the plotting script we made today on the github
+
